@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <form action="{{ url_for('')}}" method="POST">
+        <!-- Setting CSRF token  -->
+        {{ form.hidden_tag() }} 
+
+        <fieldset class="form-group">
+
+            {{ form.username.label }}
+            {{ form.username()}}
+            {% if form.username.errors %}
+                <ul class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </fieldset>
+
+        <fieldset class="form-group">
+
+            {{ form.password.label }}
+            {{ form.password() }}
+            {% if form.password.errors %}
+                <ul class="Todo">
+                    {% for error in form.password.errors %}
+                        <li class="#Todo">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </fieldset>
+
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+{% endblock %}
