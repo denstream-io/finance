@@ -22,5 +22,6 @@ venv
 .DS_Store
 .vscode
 .env
+.db
 
 
