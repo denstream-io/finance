@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 from flask_session import Session # Pending Import
 
 
-db = SQLAlchemy()
+db = SQLAlchemy() # Gives access to Model class 
 bcrypt = Bcrypt()
 session = Session()
 
