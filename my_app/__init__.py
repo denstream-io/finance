@@ -3,7 +3,7 @@
 """Initialize app."""
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy # Enables easy linkage to original sqlalchemy modules
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_session import Session # Pending Import
