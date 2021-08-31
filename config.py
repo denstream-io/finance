@@ -1,18 +1,23 @@
 """Flask configuration"""
-from decouple import config
-from pathlib import Path
+import os
+from urllib.parse import quote_plus as urlquote
 
-filepath = Path(__file__)
-basedir = str(filepath.absolute().parent.joinpath('finance.db'))
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     """Sets Flask config variables."""
 
     # Basic Configuration
-    SECRET_KEY = config('SECRET_KEY')
+    try:
+        SECRET_KEY = os.environ["SECRET_KEY"] # set a 'SECRET_KEY' to enable the Flask session cookies
+    except KeyError:
+        raise RuntimeError("API_KEY not set")
+
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
-    #SESSION_COOKIE_NAME = config('SESSION_COOKIE_NAME')
+
+    # Database 
+    SQLALCHEMY_TRACK_MODIFICATION = False
 
 class ProdConfig(Config): # Inherits from Config class
     FLASK_ENV = 'production'
@@ -20,8 +25,7 @@ class ProdConfig(Config): # Inherits from Config class
     TESTING = False
 
     # Database 
-    SQLALCHEMY_TRACK_MODIFICATION = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + basedir  # Gets absolute path of database file
+    SQLALCHEMY_DATABASE_URI = "postgresql://username:%s@hostname:port/database" % urlquote('password') # Gets absolute path of database file
 
 
 class DevConfig(Config):
@@ -31,6 +35,10 @@ class DevConfig(Config):
 
      # Database 
     SQLALCHEMY_TRACK_MODIFICATION = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + basedir 
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir,  'finance.db') 
+
+    # Flask-Toolbar
+    DEBUG_TB_ENABLED = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = True
 
 

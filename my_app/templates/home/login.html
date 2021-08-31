@@ -5,36 +5,37 @@
 {% endblock %}
 
 {% block main %}
-    <form action="{{ url_for('')}}" method="POST">
-        <!-- Setting CSRF token  -->
-        {{ form.hidden_tag() }} 
+    <div class="form-wrapper">
+        <h2 class="username">Login In</h2>
 
-        <fieldset class="form-group">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
 
-            {{ form.username.label }}
-            {{ form.username()}}
-            {% if form.username.errors %}
-                <ul class="invalid-feedback">
-                    {% for error in form.username.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
+            <fieldset class="form-field">{{ form.email.label }} {{ form.email }}
+            {% if form.email.errors %}
+                <ul class="errors">
+                {% for error in form.email.errors %}
+                    <li class="error">
+                        <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                    </li>
+                {% endfor %}
                 </ul>
             {% endif %}
-        </fieldset>
+            </fieldset>
 
-        <fieldset class="form-group">
-
-            {{ form.password.label }}
-            {{ form.password() }}
+            <fieldset class="form-field">{{ form.password.label }} {{ form.password }}
             {% if form.password.errors %}
-                <ul class="Todo">
-                    {% for error in form.password.errors %}
-                        <li class="#Todo">{{ error }}</li>
-                    {% endfor %}
+                <ul class="errors">
+                {% for error in form.password.errors %}
+                    <li class="error">
+                        <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                    </li>
+                {% endfor %}
                 </ul>
             {% endif %}
-        </fieldset>
+            </fieldset>
 
-        <button class="btn btn-primary" type="submit">Log In</button>
-    </form>
+            {{ form.submit }}
+        </form>
+    </div>
 {% endblock %}

@@ -3,14 +3,37 @@
 {% block title %} Register {% endblock %}
 
 {% block main %}
-    <form action="/buy" method="post">
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
-        </div>
-        <div class="form-group">
-            <input class="form-control" name="shares" placeholder="Shares" type="number">
-        </div>
-        <button class="btn btn-primary" type="submit">Buy</button>
-    </form>
+    <div class="form-wrapper">
+        <h2 class="username">Login In</h2>
 
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            <fieldset class="form-field">{{ form.symbol.label }} {{ form.symbol }}
+            {% if form.symbol.errors %}
+                <ul class="errors">
+                {% for error in form.email.errors %}
+                    <li class="error">
+                        <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </fieldset>
+
+            <fieldset class="form-field">{{ form.shares.label }} {{ form.shares }}
+            {% if form.shares.errors %}
+                <ul class="errors">
+                {% for error in form.shares.errors %}
+                    <li class="error">
+                        <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </fieldset>
+
+            {{ form.submit }}
+        </form>
+    </div>
 {% endblock %}

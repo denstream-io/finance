@@ -1,8 +1,6 @@
-
+import os
 import requests
 from urllib.parse import quote_plus
-
-from decouple import config
 from wtforms.validators import ValidationError
 
 
@@ -11,7 +9,7 @@ def lookup(symbol):
 
     # Contact API
     try:
-        api_key = config("API_KEY")
+        api_key = os.environ["API_KEY"]
         url = f"https://cloud.iexapis.com/stable/stock/{quote_plus(symbol)}/quote?token={api_key}"
         response = requests.get(url)
         response.raise_for_status()
@@ -39,3 +37,7 @@ class NoDuplicates():
         check = self.model.query.filter(self.field == field.data).first()
         if check:
             raise ValidationError(self.message)
+
+def usd(value):
+    """Format value as USD."""
+    return f"${value:,.2f}"

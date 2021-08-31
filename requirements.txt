@@ -1,4 +1,9 @@
+Flask
+Flask-Mail
+Flask-File-Upload
+Flask-Paginate
 Flask-WTF
 Flask-Login
 Flask-SQLAlchemy
 Flask-Bcrypt
+Flask-Session

@@ -20,7 +20,7 @@
             </tr>
         </tfoot>
         <tbody>
-            {% for row in rows %}
+            {% for row in user_activities %}
                 <tr>
                     <td>{{ row.symbols }}</td>
                     <td>{{ row.name }}</td>
@@ -31,11 +31,11 @@
             {% endfor %}
             <tr>
                 <td colspan="4">CASH</td>
-                <td>{{ cash_balance  | usd}}</td>
+                <td>{{ cash_balance | usd}}</td>
             </tr>
         </tbody>
     </table>
-{% endblock %}
+{% endblock main %}
 
 
 

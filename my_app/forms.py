@@ -1,5 +1,5 @@
-from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import PasswordField, StringField, SubmitField
+from flask_wtf import FlaskForm
+from wtforms import PasswordField, StringField, SubmitField, DecimalField
 from wtforms.validators import DataRequired, EqualTo, Email, Length, ValidationError
 
 from .models import User
@@ -45,7 +45,6 @@ class RegistrationForm(FlaskForm):
             EqualTo('password', message='Passwords must match.')
         ]
     )
-    recaptha = RecaptchaField() # Todo: Prevents bots from submiting form
     submit = SubmitField('Sign Up')
 
 
@@ -63,3 +62,22 @@ class LoginForm(FlaskForm):
     )
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
+
+
+class BuyForm(FlaskForm):
+
+    symbol =  StringField(
+        'Symbols',
+        validators=[
+            DataRequired(), 
+            Length(min=2, max=20),
+        ]
+    )
+
+    shares = DecimalField(
+        'Shares',
+        validators=[
+            DataRequired()
+        ]
+    )
+    submit = SubmitField('Buy')
